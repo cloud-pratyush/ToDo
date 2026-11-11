@@ -123,19 +123,25 @@
             document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
         }
 
-        function startCoinAnimation(amount) {
-            const container = document.getElementById('coin-animation');
-            container.style.display = 'block';
-            for (let i = 0; i < 20; i++) {
-                const coin = document.createElement('div');
-                coin.className = 'coin';
-                coin.innerText = '🪙';
-                coin.style.left = Math.random() * 100 + 'vw';
-                coin.style.animationDelay = Math.random() * 2 + 's';
-                container.appendChild(coin);
-            }
-            setTimeout(() => { container.innerHTML = ''; container.style.display = 'none'; }, 4000);
+    const coinSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3');
+
+    function startCoinAnimation(amount) {
+        // PLAY THE SOUND
+        coinSound.currentTime = 0; // Reset sound to start (in case they submit fast)
+        coinSound.play();
+    
+        const container = document.getElementById('coin-animation');
+        container.style.display = 'block';
+        for (let i = 0; i < 20; i++) {
+            const coin = document.createElement('div');
+            coin.className = 'coin';
+            coin.innerText = '🪙';
+            coin.style.left = Math.random() * 100 + 'vw';
+            coin.style.animationDelay = Math.random() * 2 + 's';
+            container.appendChild(coin);
         }
+        setTimeout(() => { container.innerHTML = ''; container.style.display = 'none'; }, 4000);
+    }
 
         updateLeaderboard();
     </script>
